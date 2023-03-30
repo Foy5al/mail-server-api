@@ -10,6 +10,8 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send(`
-   <h1>Welcome to email server</h1>
+   <center><h1>Welcome to email server</h1></center>
    `);
 });
+
+module.exports = app;
