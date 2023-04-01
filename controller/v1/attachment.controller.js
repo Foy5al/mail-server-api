@@ -1,15 +1,35 @@
-const { mailOptionsBody, transporter } = require("../../config/mail.config");
+const { mailOptionsBody } = require("../../config/mail.config");
 
 exports.uploadAttachment = async (req, res, next) => {
   try {
+    let {
+      hostAddress,
+      emailForSend,
+      password,
+      receiveEmail,
+      clientName,
+      clientEmail,
+    } = req.body;
+    const transporter = nodemailer.createTransport({
+      host: hostAddress,
+      port: 465,
+      secure: true,
+      auth: {
+        user: emailForSend,
+        pass: password,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
     console.log("this is form files up", typeof req.files, req.files);
-    let { name, email } = req.body;
+
     const mailBodyHtml = await mailOptionsBody(req.body, "career");
 
     const mailOptions = {
-      from: `${!email ? process.env.USER_NAME : email}`,
-      to: "career@banglahaatengineering.com",
-      subject: `A new resume received from ${name}`,
+      from: `${!clientEmail ? emailForSend : clientEmail}`,
+      to: `${receiveEmail}`,
+      subject: `A new resume received from ${clientName}`,
       html: mailBodyHtml,
       attachments: req.files.map((file) => {
         return {
@@ -44,7 +64,7 @@ exports.uploadAttachment = async (req, res, next) => {
 };
 
 //only contact mail
-exports.contactQuery = async (req, res, next) => {
+/* exports.contactQuery = async (req, res, next) => {
   try {
     let { email, subject } = req.body;
 
@@ -79,4 +99,4 @@ exports.contactQuery = async (req, res, next) => {
       data: error.message,
     });
   }
-};
+}; */

@@ -1,18 +1,5 @@
 const nodemailer = require("nodemailer");
 
-exports.transporter = nodemailer.createTransport({
-  host: process.env.HOST_ADD,
-  port: 465,
-  secure: true,
-  auth: {
-    user: process.env.USER_NAME,
-    pass: process.env.USER_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
-
 exports.mailOptionsBody = async (data, formData) => {
   let { name, contact, email, address, message, profession } = data;
   return `
