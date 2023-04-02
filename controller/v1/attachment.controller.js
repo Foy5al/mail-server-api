@@ -1,4 +1,5 @@
 const { mailOptionsBody } = require("../../config/mail.config");
+const nodemailer = require("nodemailer");
 
 exports.uploadAttachment = async (req, res, next) => {
   try {
@@ -22,7 +23,6 @@ exports.uploadAttachment = async (req, res, next) => {
         rejectUnauthorized: false,
       },
     });
-    console.log("this is form files up", typeof req.files, req.files);
 
     const mailBodyHtml = await mailOptionsBody(req.body, "career");
 
@@ -64,15 +64,34 @@ exports.uploadAttachment = async (req, res, next) => {
 };
 
 //only contact mail
-/* exports.contactQuery = async (req, res, next) => {
+exports.contactQuery = async (req, res, next) => {
   try {
-    let { email, subject } = req.body;
+    let {
+      hostAddress,
+      emailForSend,
+      password,
+      receiveEmail,
+      clientEmail,
+      subject,
+    } = req.body;
+    const transporter = nodemailer.createTransport({
+      host: hostAddress,
+      port: 465,
+      secure: true,
+      auth: {
+        user: emailForSend,
+        pass: password,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+    });
 
     const mailBodyHtml = await mailOptionsBody(req.body, "contact");
 
     const mailOptions = {
-      from: `${!email ? process.env.USER_NAME : email}`,
-      to: "contact@banglahaatengineering.com",
+      from: `${!clientEmail ? emailForSend : clientEmail}`,
+      to: `${receiveEmail}`,
       subject: `${subject}`,
       html: mailBodyHtml,
     };
@@ -99,4 +118,4 @@ exports.uploadAttachment = async (req, res, next) => {
       data: error.message,
     });
   }
-}; */
+};

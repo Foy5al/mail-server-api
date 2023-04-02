@@ -11,6 +11,6 @@ router
   .route("/cv")
   .post(upload.array("file", 5), attachmentController.uploadAttachment);
 
-// router.route("/query").post(attachmentController.contactQuery);
+router.route("/query").post(attachmentController.contactQuery);
 
 module.exports = router;

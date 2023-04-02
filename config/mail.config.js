@@ -1,17 +1,27 @@
 const nodemailer = require("nodemailer");
 
-exports.mailOptionsBody = async (data, formData) => {
-  let { name, contact, email, address, message, profession } = data;
+exports.mailOptionsBody = async (data, fromAdd) => {
+  let {
+    clientName,
+    clientEmail,
+    contact,
+    address,
+    message,
+    profession,
+    websiteLink,
+  } = data;
   return `
             <p>
-            <b>Name:</b> ${name} <br></br>
+            <b>clientName:</b> ${clientName} <br></br>
       
             ${
               fromAdd === "career"
                 ? `
             <b>Profession:</b> ${profession}<br></br>
-            <b>Email:</b> <a href="mailto:${!email ? "" : email}">${
-                    !email ? "No Email found in the response" : email
+            <b>Email:</b> <a href="mailto:${!clientEmail ? "" : clientEmail}">${
+                    !clientEmail
+                      ? "No Email found in the response"
+                      : clientEmail
                   }</a><br></br>
             `
                 : ``
@@ -36,9 +46,14 @@ exports.mailOptionsBody = async (data, formData) => {
             <hr>
             <br></br>
             <center>
-                <details>This Email is received from the ${fromAdd} section of 
-              <a href="http://banglahaatengineering.com/" target="_blank"> banglahaatengineering.com</a>
-               website.</details>
+                ${
+                  websiteLink
+                    ? `<details>This Email is received from the ${fromAdd} section of 
+                <a href="http://banglahaatengineering.com/" target="_blank"> ${websiteLink}</a>
+                 website.</details>`
+                    : `<details> Thank you for utilizing the email API. This application has been developed by  
+                 <a href="https://dev-foysal.netlify.app/" target="_blank"> Mohammad Foysal</a>. If you have any inquiries or concerns, please do not hesitate to contact us.</details>`
+                }
             </center>
             `;
 };
