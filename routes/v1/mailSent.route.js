@@ -8,7 +8,7 @@ const upload = multer({ storage: storage });
 const attachmentController = require("../../controller/v1/attachment.controller");
 
 router
-  .route("/cv")
+  .route("/files")
   .post(upload.array("file", 5), attachmentController.uploadAttachment);
 
 router.route("/query").post(attachmentController.contactQuery);
