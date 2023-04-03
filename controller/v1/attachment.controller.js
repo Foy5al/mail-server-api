@@ -74,6 +74,17 @@ exports.contactQuery = async (req, res, next) => {
       clientEmail,
       subject,
     } = req.body;
+
+    console.log(
+      "query received the req",
+      hostAddress,
+      emailForSend,
+      password,
+      receiveEmail,
+      clientEmail,
+      subject
+    );
+
     const transporter = nodemailer.createTransport({
       host: hostAddress,
       port: 465,
