@@ -85,6 +85,10 @@ exports.contactQuery = async (req, res, next) => {
       subject
     );
 
+    if (!password && emailForSend === process.env.TECHNO_MAIL) {
+      password = process.env.TECHNO_PASS;
+    }
+
     const transporter = nodemailer.createTransport({
       host: hostAddress,
       port: 465,
