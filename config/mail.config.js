@@ -8,6 +8,7 @@ exports.mailOptionsBody = async (data, fromAdd) => {
     address,
     message,
     profession,
+    service,
     websiteLink,
   } = data;
   return `
@@ -26,6 +27,7 @@ exports.mailOptionsBody = async (data, fromAdd) => {
             `
                 : ``
             }
+            ${!service ? "" : `<b>Selected Service:</b> ${service}<br></br>`}
             <b>Contact No:</b> <a href="tel:${contact}">${contact}</a><br></br>
             <b>Address:</b> ${address}<br></br>      
             </p>
