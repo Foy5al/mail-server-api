@@ -12,7 +12,7 @@ exports.uploadAttachment = async (req, res, next) => {
       clientEmail,
     } = req.body;
 
-    if (!password && emailForSend === process.env.TECHNO_MAIL) {
+    if (!password && emailForSend !== undefined) {
       password = process.env.TECHNO_PASS;
     }
 
@@ -90,7 +90,7 @@ exports.contactQuery = async (req, res, next) => {
       subject
     );
 
-    if (!password && emailForSend === process.env.TECHNO_MAIL) {
+    if (!password && emailForSend !== undefined) {
       password = process.env.TECHNO_PASS;
     }
 
