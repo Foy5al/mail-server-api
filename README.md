@@ -1,4 +1,4 @@
-# Mail Server API - An Alternative to Email JS
+# Mail Server API - An email sending tools for server such as Email JS
 
 Mail Server API is a Node.js based project that provides a simple and easy-to-use interface for sending emails with attachments or just the mail body using your own email configuration. This project is designed as an alternative to Email JS, allowing developers to send emails programmatically using their own email servers and configurations.
 
